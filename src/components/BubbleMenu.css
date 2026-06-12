@@ -1,0 +1,210 @@
+.bubble-nav-container {
+    left: 0;
+    right: 0;
+    top: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 3em;
+    pointer-events: none;
+    z-index: 99;
+  }
+  
+  .bubble-nav-container.fixed { position: fixed; }
+  .bubble-nav-container.absolute { position: absolute; }
+  
+  /* 顶部流体毛玻璃基础板 */
+  .bubble-nav-container .bubble-pill-box {
+    min-height: 48px;
+    height: 48px;
+    padding: 0 20px;
+    border-radius: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 🌟 核心优化：右侧歌单按钮升级为高弹自适应文字胶囊 */
+  .bubble-nav-container .menu-btn {
+    width: auto;
+    min-width: 64px;
+    padding: 0 18px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .bubble-nav-container .menu-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  }
+  
+  .bubble-nav-container .menu-btn:active {
+    transform: scale(0.95);
+  }
+  
+  @media (min-width: 768px) {
+    .bubble-nav-container .bubble-pill-box, .bubble-nav-container .menu-btn {
+      min-height: 52px; height: 52px;
+    }
+    .bubble-nav-container .bubble-pill-box { border-radius: 26px; }
+    .bubble-nav-container .menu-btn { border-radius: 26px; padding: 0 24px; }
+  }
+  
+  /* ==================== 全屏巨幕气泡列表 ==================== */
+  .bubble-menu-items {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 98;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .bubble-menu-items.fixed { position: fixed; }
+  .bubble-menu-items.absolute { position: absolute; }
+  
+  .bubble-menu-items .pill-list {
+    list-style: none; margin: 0; padding: 0 24px;
+    display: flex; flex-wrap: wrap; gap: 0; row-gap: 8px;
+    width: 100%; max-width: 1400px;
+    margin-left: auto; margin-right: auto;
+    pointer-events: auto; justify-content: center;
+  }
+  
+  .bubble-menu-items .pill-col {
+    display: flex; justify-content: center; align-items: stretch;
+    flex: 0 0 calc(100% / 3); box-sizing: border-box; padding: 0 8px;
+  }
+  
+  .bubble-menu-items .pill-link {
+    width: 100%;
+    min-height: 100px;
+    padding: 20px;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-weight: 500;
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; transition: background 0.3s ease, color 0.3s ease;
+    will-change: transform; box-sizing: border-box;
+    white-space: nowrap; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  
+  @media (min-width: 900px) {
+    .bubble-menu-items .pill-link { transform: rotate(var(--item-rot)); }
+    .bubble-menu-items .pill-link:hover {
+      transform: rotate(var(--item-rot)) scale(1.05);
+      background: var(--hover-bg) !important;
+      color: var(--hover-color) !important;
+    }
+    .bubble-menu-items .pill-link:active { transform: rotate(var(--item-rot)) scale(0.96); }
+  }
+  
+  .bubble-menu-items .pill-link .pill-label {
+    display: inline-block; will-change: transform, opacity;
+    line-height: 1.2; text-align: center; max-width: 90%; truncate: true;
+  }
+  
+  @media (max-width: 899px) {
+    .bubble-menu-items { align-items: flex-start; padding-top: 140px; overflow-y: auto; }
+    .bubble-menu-items .pill-list { row-gap: 12px; padding-bottom: 40px; }
+    .bubble-menu-items .pill-list .pill-col { flex: 0 0 100%; }
+    .bubble-menu-items .pill-link { min-height: 64px; font-size: 1.1rem; }
+    .bubble-menu-items .pill-link:hover { transform: scale(1.03); background: var(--hover-bg); color: var(--hover-color); }
+    .bubble-menu-items .pill-link:active { transform: scale(0.97); }
+  }
+  /* ==================== 🌟 移植自 PillNav 的流体填充特效 ==================== */
+.pill-liquid {
+  position: relative;
+  overflow: hidden;
+  /* 根据你的截图，增加一圈高对比度的白色细边框 */
+  border: 1px solid rgba(255, 255, 255, 0.6) !important; 
+}
+
+.pill-liquid .hover-circle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-radius: 50%;
+  background: #ffffff; /* 水波的颜色：纯白 */
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pill-liquid .label-stack {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  z-index: 2;
+}
+
+.pill-liquid .pill-label {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 1;
+  will-change: transform;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.pill-liquid .pill-label-hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #000000; /* 水波填满后，字变成纯黑，保证高对比度 */
+  z-index: 3;
+  display: inline-block;
+  will-change: transform, opacity;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+/* ==================== 🌟 通用纯 CSS 流体水波引擎 ==================== */
+/* 适用于：搜索框、用户信息、登录按钮等无需 GSAP 的轻量级组件 */
+.liquid-hover-container {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.05); /* 默认微白底色 */
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.liquid-hover-container:hover {
+  background-color: transparent !important; /* 悬浮时抽离底色，让纯白水波透出来 */
+}
+
+.liquid-hover-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); /* 模拟水波阻尼减速 */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.liquid-hover-container:hover::before {
+  transform: translateX(-50%) scale(35); /* 瞬间放大 35 倍填满整个胶囊 */
+}
