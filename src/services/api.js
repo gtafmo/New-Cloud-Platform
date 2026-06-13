@@ -1,5 +1,5 @@
-// 🌟 你的 Vercel 公网 API 接口地址
-export const API_BASE_URL = 'https://api-enhanced-theta-murex.vercel.app';
+// 🌟 切换为 Cloudflare 相对路径，让 CF 在后台帮你做反向代理加速
+export const API_BASE_URL = '/api';
 
 // --- 登录相关 ---
 export async function getQRKey() {
