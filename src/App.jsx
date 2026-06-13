@@ -54,17 +54,21 @@ export default function App() {
     setTimeout(() => setToast(''), 2500);
   };
 
-  // 🌟 初始化高清背景视频
+  // 🌟 强行接管背景视频控制权，专治老旧/套壳浏览器拦截
   useEffect(() => {
     const video = bgVideoRef.current;
-    const videoSrc = '/videos/bg2.mp4'; 
     if (video) {
-      if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = videoSrc;
-      } else if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(videoSrc);
-        hls.attachMedia(video);
+      // 1. 强制注入底层静音属性，防止被识别为有声广告
+      video.defaultMuted = true;
+      video.muted = true;
+      video.playsInline = true;
+
+      // 2. 强行用代码触发播放
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("浏览器自动播放拦截拦截了视频，正等待用户交互恢复:", error);
+        });
       }
     }
   }, []);
