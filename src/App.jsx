@@ -374,7 +374,15 @@ export default function App() {
       <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={handleAudioEnded} />
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <video ref={bgVideoRef} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+      <video 
+  ref={bgVideoRef} 
+  src="/videos/bg2.mp4" 
+  autoPlay 
+  muted 
+  loop 
+  playsInline 
+  className="w-full h-full object-cover" 
+/>
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[4px]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(0,0,0,0.1)_0%,_rgba(0,0,0,0.7)_100%)] pointer-events-none" />
       </div>
